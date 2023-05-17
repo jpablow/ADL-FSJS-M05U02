@@ -1,46 +1,29 @@
 import './styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-
 import Home from './views/Home';
 import Favoritos from './views/Favoritos';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import ElContexto from './ElContexto';
+import endpoint from './fotos.json';
 
 export default function App() {
-  const url = './src/fotos.json';
-  const [photos, setPhotos] = useState([]);
-
-  const getData = async () => {
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      setPhotos([data.photos]);
-    } catch (error) {
-      alert(
-        'Se ha producido un error al recuperar los datos => ' +
-          error.name +
-          ': ' +
-          error.message
-      );
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+  const [photos, setPhotos] = useState(endpoint.photos);
+  const globalState = { photos, setPhotos };
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Navbar />
+      <ElContexto.Provider value={globalState}>
+        <BrowserRouter>
+          <Navbar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/favoritos" element={<Favoritos />} />
-        </Routes>
-      </BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/favoritos" element={<Favoritos />} />
+          </Routes>
+        </BrowserRouter>
+      </ElContexto.Provider>
     </div>
   );
 }
