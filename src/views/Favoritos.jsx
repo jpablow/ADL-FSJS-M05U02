@@ -3,13 +3,13 @@ import ElContexto from '../ElContexto';
 import { useContext } from 'react';
 
 export default function Favoritos() {
-  const { photos, fav, toggleFav } = useContext(ElContexto);
+  const { favs, toggleFav } = useContext(ElContexto);
 
   return (
     <div>
       <h1>Fotos favoritas</h1>
       <div className="p-3 galeria grid-columns-4">
-        {photos.map((p) => {
+        {favs.map((p) => {
           return (
             <div
               key={p.id}

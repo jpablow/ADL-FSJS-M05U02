@@ -4,7 +4,7 @@ import ElContexto from '../ElContexto';
 import { useContext } from 'react';
 
 export default function Home() {
-  const { photos, setPhotos, toggleFav } = useContext(ElContexto);
+  const { photos, toggleFav } = useContext(ElContexto);
 
   return (
     <div className="galeria grid-columns-4 p-3">

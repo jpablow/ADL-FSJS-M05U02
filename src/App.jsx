@@ -11,10 +11,14 @@ import endpoint from './fotos.json';
 export default function App() {
   const [photos, setPhotos] = useState(endpoint.photos);
   const [favs, setFavs] = useState([]);
+
   const toggleFav = (i) => {
     const pIdx = photos.findIndex((photo) => photo.id === i);
     photos[pIdx].liked = !photos[pIdx].liked;
     setPhotos([...photos]);
+    setFavs([]);
+    const favArr = photos.filter((photo) => photo.liked === true);
+    setFavs([...favArr]);
   };
 
   const globalState = { photos, setPhotos, favs, setFavs, toggleFav };
