@@ -4,7 +4,7 @@ import ElContexto from '../ElContexto';
 import { useContext } from 'react';
 
 export default function Home() {
-  const { photos } = useContext(ElContexto);
+  const { photos, setPhotos, toggleFav } = useContext(ElContexto);
 
   return (
     <div className="galeria grid-columns-4 p-3">
@@ -14,6 +14,7 @@ export default function Home() {
             key={p.id}
             className="foto"
             style={{ backgroundImage: `url(${p.src.medium})` }}
+            onClick={() => toggleFav(p.id)}
           >
             <Heart filled={p.liked} />
             <p>{p.alt}</p>
